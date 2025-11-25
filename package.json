@@ -1,0 +1,19 @@
+{
+  "name": "webvnc",
+  "version": "1.0.0",
+  "description": "Web-based VNC client",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "@maximegris/node-websockify": "^1.0.7",
+    "express": "^5.1.0",
+    "ws": "^8.18.3"
+  }
+}

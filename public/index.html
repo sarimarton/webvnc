@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web VNC Client</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="connection-panel" class="panel">
+            <h1>Web VNC Client</h1>
+            <form id="connect-form">
+                <div class="form-group">
+                    <label for="host">Host</label>
+                    <input type="text" id="host" name="host" placeholder="pl. 192.168.1.79:5900" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Felhasználónév</label>
+                    <input type="text" id="username" name="username" placeholder="Felhasználónév (opcionális)">
+                </div>
+                <div class="form-group">
+                    <label for="password">Jelszó</label>
+                    <input type="password" id="password" name="password" placeholder="Jelszó (opcionális)">
+                </div>
+                <button type="submit" class="btn-connect">Csatlakozás</button>
+            </form>
+            <div id="status" class="status"></div>
+        </div>
+
+        <div id="vnc-container" class="hidden">
+            <div id="vnc-toolbar">
+                <button id="btn-disconnect" class="btn-toolbar">Bontás</button>
+                <button id="btn-fullscreen" class="btn-toolbar">Teljes képernyő</button>
+                <button id="btn-ctrl-alt-del" class="btn-toolbar">Ctrl+Alt+Del</button>
+                <span id="connection-info"></span>
+            </div>
+            <div id="vnc-screen"></div>
+        </div>
+
+        <div id="credentials-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Hitelesítés szükséges</h2>
+                <form id="credentials-form">
+                    <div class="form-group">
+                        <label for="modal-username">Felhasználónév</label>
+                        <input type="text" id="modal-username" placeholder="Felhasználónév">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-password">Jelszó</label>
+                        <input type="password" id="modal-password" placeholder="Jelszó" required>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" id="modal-cancel" class="btn-toolbar">Mégse</button>
+                        <button type="submit" class="btn-connect">Bejelentkezés</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
