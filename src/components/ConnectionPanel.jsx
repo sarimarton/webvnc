@@ -1,21 +1,53 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function ConnectionPanel({ initialSettings, history, onConnect, onDeleteHistory, status }) {
     const [host, setHost] = useState(initialSettings.host || '');
     const [username, setUsername] = useState(initialSettings.username || '');
     const [password, setPassword] = useState(initialSettings.password || '');
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-    const dropdownRef = useRef(null);
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsHistoryOpen(false);
-            }
+    const handleHostFocus = () => {
+        if (history.length > 0) {
+            setIsHistoryOpen(true);
+            setHighlightedIndex(-1);
         }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+    };
+
+    const handleHostBlur = (e) => {
+        // Check if the new focus target is inside the dropdown (for clicks)
+        const relatedTarget = e.relatedTarget;
+        if (relatedTarget && relatedTarget.closest('.history-dropdown')) {
+            return;
+        }
+        setIsHistoryOpen(false);
+        setHighlightedIndex(-1);
+    };
+
+    const handleHostKeyDown = (e) => {
+        if (history.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (!isHistoryOpen) {
+                setIsHistoryOpen(true);
+                setHighlightedIndex(0);
+            } else {
+                setHighlightedIndex(prev =>
+                    prev < history.length - 1 ? prev + 1 : prev
+                );
+            }
+        } else if (e.key === 'ArrowUp' && isHistoryOpen) {
+            e.preventDefault();
+            setHighlightedIndex(prev => prev > 0 ? prev - 1 : -1);
+        } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+            e.preventDefault();
+            handleSelectHistory(history[highlightedIndex]);
+        } else if (e.key === 'Escape') {
+            setIsHistoryOpen(false);
+            setHighlightedIndex(-1);
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -44,37 +76,28 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
                     <label htmlFor="host" className="block mb-2 text-sm text-muted">
                         Host
                     </label>
-                    <div className="relative" ref={dropdownRef}>
-                        <div className="flex gap-2">
-                            <input
-                                type="text"
-                                id="host"
-                                value={host}
-                                onChange={(e) => setHost(e.target.value)}
-                                placeholder="pl. 192.168.1.79:5900"
-                                required
-                                className={inputClasses}
-                            />
-                            {history.length > 0 && (
-                                <button
-                                    type="button"
-                                    onClick={() => setIsHistoryOpen(!isHistoryOpen)}
-                                    className="px-3 bg-input border border-border rounded-lg text-white hover:bg-input-focus transition-colors"
-                                    title="Előzmények"
-                                >
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </button>
-                            )}
-                        </div>
+                    <div className="relative">
+                        <input
+                            type="text"
+                            id="host"
+                            value={host}
+                            onChange={(e) => setHost(e.target.value)}
+                            onFocus={handleHostFocus}
+                            onBlur={handleHostBlur}
+                            onKeyDown={handleHostKeyDown}
+                            placeholder="pl. 192.168.1.79:5900"
+                            required
+                            className={inputClasses}
+                        />
                         {isHistoryOpen && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-panel border border-border rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-50 max-h-60 overflow-y-auto">
-                                {history.map((session) => (
+                            <div className="history-dropdown absolute top-full left-0 right-0 mt-2 bg-panel border border-border rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-50 max-h-60 overflow-y-auto">
+                                {history.map((session, index) => (
                                     <div
                                         key={session.host}
                                         onClick={() => handleSelectHistory(session)}
-                                        className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-input-focus transition-colors border-b border-border last:border-b-0"
+                                        className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors border-b border-border last:border-b-0 ${
+                                            index === highlightedIndex ? 'bg-input-focus' : 'hover:bg-input-focus'
+                                        }`}
                                     >
                                         <div className="flex-1 min-w-0">
                                             <div className="text-white text-sm truncate">{session.host}</div>
@@ -84,6 +107,7 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
                                         </div>
                                         <button
                                             type="button"
+                                            tabIndex={-1}
                                             onClick={(e) => handleDeleteClick(e, session.host)}
                                             className="ml-3 p-1.5 text-placeholder hover:text-error hover:bg-error-bg rounded transition-colors"
                                             title="Törlés"
