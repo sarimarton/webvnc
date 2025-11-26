@@ -137,6 +137,15 @@ function connect(host, port, username, password) {
             vncContainer.classList.remove('hidden');
             connectionInfo.textContent = `${host}:${port}`;
             hideStatus();
+
+            // Force resize after connection to fix black screen issue
+            // The canvas needs a resize event to render properly
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+                // Also try toggling scaleViewport to force recalculation
+                rfb.scaleViewport = false;
+                rfb.scaleViewport = true;
+            }, 100);
         });
 
         rfb.addEventListener('disconnect', (e) => {
