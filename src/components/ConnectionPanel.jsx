@@ -14,14 +14,12 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
         }
     };
 
-    const handleHostBlur = (e) => {
-        // Check if the new focus target is inside the dropdown (for clicks)
-        const relatedTarget = e.relatedTarget;
-        if (relatedTarget && relatedTarget.closest('.history-dropdown')) {
-            return;
-        }
-        setIsHistoryOpen(false);
-        setHighlightedIndex(-1);
+    const handleHostBlur = () => {
+        // Small delay to allow click events on dropdown items to fire first
+        setTimeout(() => {
+            setIsHistoryOpen(false);
+            setHighlightedIndex(-1);
+        }, 100);
     };
 
     const handleHostKeyDown = (e) => {
