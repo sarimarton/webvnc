@@ -5,9 +5,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "dev": "node server.js",
-    "build": "vite build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
