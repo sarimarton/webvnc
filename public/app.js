@@ -15,7 +15,6 @@ const passwordInput = document.getElementById('password');
 
 const btnDisconnect = document.getElementById('btn-disconnect');
 const btnFullscreen = document.getElementById('btn-fullscreen');
-const btnCtrlAltDel = document.getElementById('btn-ctrl-alt-del');
 
 const credentialsModal = document.getElementById('credentials-modal');
 const credentialsForm = document.getElementById('credentials-form');
@@ -200,12 +199,6 @@ btnFullscreen.addEventListener('click', () => {
         vncContainer.requestFullscreen();
     } else if (vncContainer.webkitRequestFullscreen) {
         vncContainer.webkitRequestFullscreen();
-    }
-});
-
-btnCtrlAltDel.addEventListener('click', () => {
-    if (rfb) {
-        rfb.sendCtrlAltDel();
     }
 });
 
