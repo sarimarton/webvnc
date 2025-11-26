@@ -54,7 +54,7 @@ export default function CredentialsModal({ onSubmit, onCancel }) {
                             placeholder="Jelszó"
                             required
                             autoComplete="off"
-                            className={inputClasses}
+                            className={`${inputClasses} [font-family:dotsfont] text-xs`}
                         />
                     </div>
                     <div className="flex gap-2.5 mt-5">

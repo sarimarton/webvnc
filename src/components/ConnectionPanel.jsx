@@ -128,7 +128,7 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Jelszó (opcionális)"
                         autoComplete="off"
-                        className={inputClasses}
+                        className={`${inputClasses} [font-family:dotsfont] text-xs`}
                     />
                 </div>
                 <button
