@@ -14,13 +14,13 @@ const PORT = process.env.PORT || 3000;
 // Serve static files from public directory
 app.use(express.static(join(__dirname, 'public')));
 
+// Create HTTP server
 const server = createServer(app);
 
 // WebSocket server for proxying to VNC
 const wss = new WebSocketServer({ server, path: '/websockify' });
 
 wss.on('connection', (ws, req) => {
-    // Parse target from query string: /websockify?host=xxx&port=yyy
     const url = new URL(req.url, `http://${req.headers.host}`);
     const targetHost = url.searchParams.get('host');
     const targetPort = parseInt(url.searchParams.get('port'), 10) || 5900;
@@ -32,7 +32,6 @@ wss.on('connection', (ws, req) => {
 
     console.log(`WebSocket connection: proxying to ${targetHost}:${targetPort}`);
 
-    // Connect to VNC server
     const tcpSocket = net.connect(targetPort, targetHost, () => {
         console.log(`TCP connected to ${targetHost}:${targetPort}`);
     });
@@ -71,5 +70,5 @@ wss.on('connection', (ws, req) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`Web VNC Client fut: http://localhost:${PORT}`);
+    console.log(`Web VNC Client: http://localhost:${PORT}`);
 });

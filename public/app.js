@@ -135,7 +135,7 @@ function connect(host, port, username, password) {
         rfb.addEventListener('connect', () => {
             connectionPanel.classList.add('hidden');
             vncContainer.classList.remove('hidden');
-            connectionInfo.textContent = `Csatlakozva: ${host}:${port}`;
+            connectionInfo.textContent = `${host}:${port}`;
             hideStatus();
         });
 

@@ -21,7 +21,14 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Jelszó</label>
-                    <input type="password" id="password" name="password" placeholder="Jelszó (opcionális)">
+                    <!--
+                        NOTE: Using type="text" instead of type="password" intentionally!
+                        Chrome extensions (like Claude for Chrome) cannot take screenshots
+                        of pages containing password fields for security reasons.
+                        This allows the extension to capture the VNC screen.
+                    -->
+                    <!-- <input type="password" id="password" name="password" placeholder="Jelszó (opcionális)"> -->
+                    <input type="text" id="password" name="password" placeholder="Jelszó (opcionális)" autocomplete="off">
                 </div>
                 <button type="submit" class="btn-connect">Csatlakozás</button>
             </form>
@@ -48,7 +55,13 @@
                     </div>
                     <div class="form-group">
                         <label for="modal-password">Jelszó</label>
-                        <input type="password" id="modal-password" placeholder="Jelszó" required>
+                        <!--
+                            NOTE: Using type="text" instead of type="password" intentionally!
+                            Chrome extensions (like Claude for Chrome) cannot take screenshots
+                            of pages containing password fields for security reasons.
+                        -->
+                        <!-- <input type="password" id="modal-password" placeholder="Jelszó" required> -->
+                        <input type="text" id="modal-password" placeholder="Jelszó" required autocomplete="off">
                     </div>
                     <div class="modal-buttons">
                         <button type="button" id="modal-cancel" class="btn-toolbar">Mégse</button>
