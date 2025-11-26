@@ -66,7 +66,7 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
         onDeleteHistory(hostToDelete);
     };
 
-    const inputClasses = "w-full py-3 px-4 text-base border border-border rounded-lg bg-input text-white transition-colors focus:outline-none focus:border-primary focus:bg-input-focus placeholder:text-placeholder";
+    const inputClasses = "w-full py-3 px-4 text-base border border-border rounded-lg bg-input text-white focus:outline-none focus:border-primary focus:bg-input-focus placeholder:text-placeholder";
 
     return (
         <div className="max-w-[400px] mx-auto my-12 p-8 bg-panel rounded-2xl border border-border shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
@@ -95,7 +95,7 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
                                     <div
                                         key={session.host}
                                         onClick={() => handleSelectHistory(session)}
-                                        className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors border-b border-border last:border-b-0 ${
+                                        className={`flex items-center justify-between px-4 py-3 cursor-pointer border-b border-border last:border-b-0 ${
                                             index === highlightedIndex ? 'bg-input-focus' : 'hover:bg-input-focus'
                                         }`}
                                     >
@@ -109,7 +109,7 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
                                             type="button"
                                             tabIndex={-1}
                                             onClick={(e) => handleDeleteClick(e, session.host)}
-                                            className="ml-3 p-1.5 text-placeholder hover:text-error hover:bg-error-bg rounded transition-colors"
+                                            className="ml-3 p-1.5 text-placeholder hover:text-error hover:bg-error-bg rounded"
                                             title="Törlés"
                                         >
                                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,7 +157,7 @@ export default function ConnectionPanel({ initialSettings, history, onConnect, o
                 </div>
                 <button
                     type="submit"
-                    className="w-full py-3.5 text-base font-semibold text-white bg-gradient-to-br from-primary to-primary-dark rounded-lg cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(74,158,255,0.4)] active:translate-y-0"
+                    className="w-full py-3.5 text-base font-semibold text-white bg-gradient-to-br from-primary to-primary-dark rounded-lg cursor-pointer"
                 >
                     Csatlakozás
                 </button>
