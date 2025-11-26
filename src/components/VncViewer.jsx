@@ -97,23 +97,23 @@ export default function VncViewer({
     }, [onDisconnect]);
 
     return (
-        <div className="vnc-container" ref={containerRef}>
-            <div className="vnc-toolbar">
+        <div className="flex-1 flex flex-col bg-black" ref={containerRef}>
+            <div className="flex items-center gap-2.5 py-2.5 px-4 bg-dark-bg border-b border-border">
                 <button
-                    className="btn-toolbar btn-disconnect"
+                    className="py-2 px-4 text-sm text-white bg-disconnect border border-disconnect-border rounded-md cursor-pointer transition-colors hover:bg-disconnect-hover"
                     onClick={handleDisconnectClick}
                 >
                     Bontás
                 </button>
                 <button
-                    className="btn-toolbar"
+                    className="py-2 px-4 text-sm text-white bg-toolbar border border-border rounded-md cursor-pointer transition-colors hover:bg-toolbar-hover"
                     onClick={handleFullscreen}
                 >
                     Teljes képernyő
                 </button>
-                <span className="connection-info">{host}:{port}</span>
+                <span className="ml-auto text-sm text-muted">{host}:{port}</span>
             </div>
-            <div className="vnc-screen" ref={screenRef}></div>
+            <div className="flex-1 flex items-center justify-center overflow-auto [&_canvas]:max-w-full [&_canvas]:max-h-full" ref={screenRef}></div>
         </div>
     );
 }
