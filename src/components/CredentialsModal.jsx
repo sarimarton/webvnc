@@ -17,27 +17,22 @@ export default function CredentialsModal({ onSubmit, onCancel }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000]">
-            <div className="bg-modal-bg backdrop-blur-[10px] p-8 rounded-2xl border border-border-light shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-w-[320px] max-w-[400px]">
-                <h2 className="text-center mb-5 text-xl font-semibold">Hitelesítés szükséges</h2>
+        <div className="modal">
+            <div className="modal-content">
+                <h2>Hitelesítés szükséges</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-5">
-                        <label htmlFor="modal-username" className="block mb-2 text-sm text-text-muted">
-                            Felhasználónév
-                        </label>
+                    <div className="form-group">
+                        <label htmlFor="modal-username">Felhasználónév</label>
                         <input
                             type="text"
                             id="modal-username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Felhasználónév"
-                            className="w-full py-3 px-4 text-base border border-border-light rounded-lg bg-input-bg text-white transition-colors duration-200 focus:outline-none focus:border-primary focus:bg-input-focus placeholder:text-text-placeholder"
                         />
                     </div>
-                    <div className="mb-5">
-                        <label htmlFor="modal-password" className="block mb-2 text-sm text-text-muted">
-                            Jelszó
-                        </label>
+                    <div className="form-group">
+                        <label htmlFor="modal-password">Jelszó</label>
                         {/*
                             NOTE: Using type="text" instead of type="password" intentionally!
                             Chrome extensions (like Claude for Chrome) cannot take screenshots
@@ -52,21 +47,17 @@ export default function CredentialsModal({ onSubmit, onCancel }) {
                             placeholder="Jelszó"
                             required
                             autoComplete="off"
-                            className="w-full py-3 px-4 text-base border border-border-light rounded-lg bg-input-bg text-white transition-colors duration-200 focus:outline-none focus:border-primary focus:bg-input-focus placeholder:text-text-placeholder"
                         />
                     </div>
-                    <div className="flex gap-2.5 mt-5">
+                    <div className="modal-buttons">
                         <button
                             type="button"
-                            className="flex-1 py-2 px-4 text-sm text-white bg-btn-toolbar border border-border-light rounded-md cursor-pointer transition-colors duration-200 hover:bg-btn-toolbar-hover"
+                            className="btn-toolbar"
                             onClick={onCancel}
                         >
                             Mégse
                         </button>
-                        <button
-                            type="submit"
-                            className="flex-1 py-3.5 text-base font-semibold text-white bg-gradient-to-br from-primary to-primary-dark border-none rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(74,158,255,0.4)] active:translate-y-0"
-                        >
+                        <button type="submit" className="btn-connect">
                             Bejelentkezés
                         </button>
                     </div>
