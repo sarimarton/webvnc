@@ -42,6 +42,7 @@ export default function VncViewer({
 
         rfb.scaleViewport = true;
         rfb.resizeSession = false;
+        rfb.showDotCursor = true;
 
         rfb.addEventListener('connect', () => {
             onConnected();
